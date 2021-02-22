@@ -39,10 +39,10 @@ public class DataRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        String uri = "http://localhost:8081/store/8a80cb8175f0cd600175f2c3d9b40002";
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(uri, String.class);
-        System.out.println(responseEntity);
+//
+//        String uri = "http://localhost:8081/store/8a80cb8175f0cd600175f2c3d9b40002";
+//        ResponseEntity<String> responseEntity = restTemplate.getForEntity(uri, String.class);
+//        System.out.println(responseEntity);
 //        Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse("1998-01-01");
 //        Customer customer = new Customer("Tika", "Raditya", birthDate, "Lampung", 1, "tika","abc", "tika@gmail.com");
 //        customerRepository.save(customer);
