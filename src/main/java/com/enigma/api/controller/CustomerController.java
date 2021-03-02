@@ -1,5 +1,6 @@
 package com.enigma.api.controller;
 
+import com.enigma.api.constant.ApiUrlConstant;
 import com.enigma.api.dto.CustomerSearchDTO;
 import com.enigma.api.entity.Customer;
 import com.enigma.api.service.CustomerService;
@@ -13,21 +14,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
+@RequestMapping(ApiUrlConstant.CUSTOMER)
 public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @GetMapping("/customer/{id}")
+    @GetMapping("/{id}")
     public Customer getCustomerById(@PathVariable String id){
         return customerService.getCustomerById(id);
     }
 
-    @PostMapping("/customer")
+    @PostMapping
     public Customer saveCustomer(@RequestBody Customer customer){
     return customerService.saveCustomer(customer);
     }
 
-    @GetMapping("/customers")
+    @GetMapping
     public Page<Customer> searchCustomerPerPage(@RequestParam(name = "page", defaultValue = "0") Integer page,
                                                 @RequestParam(name = "size", defaultValue = "10") Integer sizePerPage,
                                                 @RequestParam(name = "sortBy", defaultValue = "firstName") String sortBy,
@@ -68,12 +70,12 @@ public class CustomerController {
 //        return customerService.sortAsc();
 //    }
 
-    @PutMapping("/customer")
+    @PutMapping
     public Customer editCustomer(@RequestBody Customer customer){
         return customerService.editCustomer(customer);
     }
 
-    @DeleteMapping("/customer")
+    @DeleteMapping
     public void deleteCustomer(@RequestParam(name = "id") String id){
        customerService.deleteCustomer(id);
     }

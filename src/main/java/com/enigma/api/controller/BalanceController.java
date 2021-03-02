@@ -11,12 +11,12 @@ public class BalanceController {
     @Autowired
     BalanceService balanceService;
 
-    @GetMapping("/balance/{id}")
+    @GetMapping("/balances/{id}")
     public Balance getBalanceById(@PathVariable String id){
         return balanceService.getBalanceById(id);
     }
 
-    @PostMapping("/balance")
+    @PostMapping("/balances")
     public Balance saveBalance(@RequestBody Balance balance){
         return balanceService.saveBalance(balance);
     }
