@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "t_purchase")
@@ -22,13 +24,17 @@ public class Purchase {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.PERSIST)
+    private List<PurchaseDetail> purchaseDetailList = new ArrayList<>();
+
     public Purchase() {
     }
 
-    public Purchase(String id, Date transactionDate, Customer customerId) {
+    public Purchase(String id, Date transactionDate, Customer customer, List<PurchaseDetail> purchaseDetailList) {
         this.id = id;
         this.transactionDate = transactionDate;
-        this.customer = customerId;
+        this.customer = customer;
+        this.purchaseDetailList = purchaseDetailList;
     }
 
     public String getId() {
@@ -53,5 +59,13 @@ public class Purchase {
 
     public void setCustomer(Customer customerId) {
         this.customer = customerId;
+    }
+
+    public List<PurchaseDetail> getPurchaseDetailList() {
+        return purchaseDetailList;
+    }
+
+    public void setPurchaseDetailList(List<PurchaseDetail> purchaseDetailList) {
+        this.purchaseDetailList = purchaseDetailList;
     }
 }

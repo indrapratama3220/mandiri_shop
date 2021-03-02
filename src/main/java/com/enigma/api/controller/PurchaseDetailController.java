@@ -17,7 +17,7 @@ public class PurchaseDetailController {
         purchaseDetailService.registerPurchaseDetail(purchaseDetail);
     }
 
-    @PostMapping("/allPurchaseDetails")
+    @PostMapping("/purchaseDetails/list")
     public void saveAllPurchaseDetail(@RequestBody List<PurchaseDetail> purchaseDetailList){
         purchaseDetailService.saveAllPurchaseDetail(purchaseDetailList);
     }
