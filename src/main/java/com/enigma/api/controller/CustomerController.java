@@ -41,7 +41,7 @@ public class CustomerController {
         if(sortBy != null) {
             Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
             Pageable pageable = PageRequest.of(page, sizePerPage, sort);
-            CustomerSearchDTO customerSearchDTO = new CustomerSearchDTO(firstName, email, address, dateOfBirth);
+            CustomerSearchDTO customerSearchDTO = new CustomerSearchDTO(firstName.toLowerCase(), email, address, dateOfBirth);
             return customerService.getCustomerPerPage(pageable, customerSearchDTO);
         } else {
             Pageable pageable = PageRequest.of(page, sizePerPage);

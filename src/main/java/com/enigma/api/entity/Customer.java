@@ -28,7 +28,7 @@ public class Customer {
     private Integer status;
     @Column(name = "user_name")
     private String userName;
-    @Column(name = "user_email")
+    @Column(name = "user_password")
     private String userPassword;
     private String email;
 

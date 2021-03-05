@@ -19,7 +19,7 @@ public class ProductSpesification {
                 List<Predicate> predicates = new ArrayList<>();
 
                 if(productSearchDTO.getSearchProductName() != null){
-                    Predicate productNamePredicate = criteriaBuilder.like(root.get("productName"), "%" + productSearchDTO.getSearchProductName() + "%");
+                    Predicate productNamePredicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("productName")),"%" + productSearchDTO.getSearchProductName() + "%");
                     predicates.add(productNamePredicate);
                 }
                 Predicate [] arrayPredicates = predicates.toArray(new Predicate[predicates.size()]);

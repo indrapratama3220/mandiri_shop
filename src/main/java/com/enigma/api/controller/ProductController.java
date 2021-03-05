@@ -51,8 +51,8 @@ public class ProductController {
 
         if (sortBy != null) {
             Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
-            Pageable pageable = PageRequest.of(page, sizePerPage, sort);
-            ProductSearchDTO productSearchDTO = new ProductSearchDTO(productName);
+            Pageable pageable = PageRequest.of(page, sizePerPage, sort);;
+            ProductSearchDTO productSearchDTO = new ProductSearchDTO(productName.toLowerCase());
             return productService.getProductsByPage(pageable, productSearchDTO);
         } else {
             ProductSearchDTO productSearchDTO = new ProductSearchDTO(productName);
