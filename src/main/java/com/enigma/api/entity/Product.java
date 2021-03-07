@@ -14,6 +14,8 @@ public class Product {
     private String id;
     @Column(name = "product_name")
     private String productName;
+    @Column(name = "product_desc")
+    private String productDesc;
     @Column(name = "product_status")
     private Integer productStatus;
     @Column(name = "product_price_buy")
@@ -26,8 +28,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productName, Integer productStatus, Integer productPriceBuy, Integer productPriceSell, String productImage) {
+    public Product(String productName, String productDesc, Integer productStatus, Integer productPriceBuy, Integer productPriceSell, String productImage) {
         this.productName = productName;
+        this.productDesc = productDesc;
         this.productStatus = productStatus;
         this.productPriceBuy = productPriceBuy;
         this.productPriceSell = productPriceSell;
@@ -76,6 +79,14 @@ public class Product {
 
     public String getProductImage() {
         return productImage;
+    }
+
+    public String getProductDesc() {
+        return productDesc;
+    }
+
+    public void setProductDesc(String productDesc) {
+        this.productDesc = productDesc;
     }
 
     public void setProductImage(String productImage) {
