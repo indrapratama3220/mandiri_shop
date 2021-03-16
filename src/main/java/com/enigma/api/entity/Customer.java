@@ -1,6 +1,7 @@
 package com.enigma.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE},
     mappedBy = "customer", orphanRemoval = true)
+    @JsonIgnore
     private List<Balance> balances = new ArrayList<>();
 
 

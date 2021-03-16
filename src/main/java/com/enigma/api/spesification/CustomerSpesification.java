@@ -20,7 +20,7 @@ public class CustomerSpesification {
                 List<Predicate>predicates = new ArrayList<>();
 
                 if(!(customerSearchDTO.getSearchCustomerFirstName() == null)){
-                    Predicate customerNamePredicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("firstName")), "%" + customerSearchDTO.getSearchCustomerFirstName() + "%");
+                    Predicate customerNamePredicate = criteriaBuilder.like(root.get("firstName"), "%" + customerSearchDTO.getSearchCustomerFirstName() + "%");
                     predicates.add(customerNamePredicate);
                 }
                 if(!(customerSearchDTO.getSearchCustomerEmail() == null)){
