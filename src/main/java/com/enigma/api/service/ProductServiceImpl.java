@@ -1,10 +1,14 @@
 package com.enigma.api.service;
 
+import com.enigma.api.dto.HistoryPriceDTO;
 import com.enigma.api.dto.ProductSearchDTO;
+import com.enigma.api.entity.HistoryPrice;
 import com.enigma.api.entity.Product;
 import com.enigma.api.exception.DataNotFoundException;
+import com.enigma.api.repository.HistoryPriceRepository;
 import com.enigma.api.repository.ProductRepository;
 import com.enigma.api.spesification.ProductSpesification;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +21,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,6 +30,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    HistoryPriceRepository historyPriceRepository;
 
     @Override
     public Product getProductById(String id) {
@@ -35,8 +44,16 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
+    public void editProduct(Product product) {
+
+        Product product1 = productRepository.save(product);
+        HistoryPrice historyPrice = new HistoryPrice();
+        Date date = new Date();
+        historyPrice.setDate(date);
+        historyPrice.setPriceBuy(product.getProductPriceBuy());
+        historyPrice.setPriceSell(product.getProductPriceSell());
+        historyPrice.setProduct(product1);
+        historyPriceRepository.save(historyPrice);
     }
 
     @Override
@@ -67,7 +84,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product editProduct(Product product) {
+    public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
 

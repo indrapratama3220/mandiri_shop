@@ -1,30 +1,19 @@
 package com.enigma.api;
 
 //import com.enigma.api.config.AppConfig;
-import com.enigma.api.entity.Balance;
-import com.enigma.api.entity.Customer;
-import com.enigma.api.entity.Product;
-import com.enigma.api.entity.Store;
-import com.enigma.api.repository.BalanceRepository;
+import com.enigma.api.repository.PocketRepository;
 import com.enigma.api.repository.CustomerRepository;
 import com.enigma.api.repository.ProductRepository;
-import com.enigma.api.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
 
 @Component
 public class DataRunner implements CommandLineRunner {
 
     @Autowired
-    BalanceRepository balanceRepository;
+    PocketRepository pocketRepository;
 
     @Autowired
     CustomerRepository customerRepository;

@@ -1,7 +1,6 @@
 package com.enigma.api.service;
 
-import com.enigma.api.entity.Balance;
-import com.enigma.api.entity.Product;
+import com.enigma.api.entity.Pocket;
 import com.enigma.api.entity.Purchase;
 import com.enigma.api.entity.PurchaseDetail;
 import com.enigma.api.repository.ProductRepository;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PurchaseDetailServiceImpl implements PurchaseDetailService {
@@ -44,7 +42,7 @@ public class PurchaseDetailServiceImpl implements PurchaseDetailService {
     }
 
     @Override
-    public void transaction(Balance balance, Purchase purchase, PurchaseDetail purchaseDetail) {
+    public void transaction(Pocket balance, Purchase purchase, PurchaseDetail purchaseDetail) {
 
     }
 }

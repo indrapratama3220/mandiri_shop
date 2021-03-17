@@ -2,7 +2,9 @@ package com.enigma.api.controller;
 
 import com.enigma.api.constant.ApiUrlConstant;
 import com.enigma.api.dto.ProductSearchDTO;
+import com.enigma.api.entity.HistoryPrice;
 import com.enigma.api.entity.Product;
+import com.enigma.api.service.HistoryPriceService;
 import com.enigma.api.service.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -27,14 +29,17 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    HistoryPriceService historyPriceService;
+
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable String id) {
         return productService.getProductById(id);
     }
 
     @PostMapping
-    public Product saveProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public void saveProduct(@RequestBody Product product) {
+        productService.saveProduct(product);
     }
 
     @GetMapping
@@ -67,8 +72,8 @@ public class ProductController {
     }
 
     @PutMapping
-    public Product editProduct(@RequestBody Product product) {
-        return productService.editProduct(product);
+    public void editProduct(@RequestBody Product product) {
+        productService.editProduct(product);
     }
 
     @PostMapping("/picture")

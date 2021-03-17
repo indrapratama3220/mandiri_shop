@@ -1,44 +1,50 @@
 package com.enigma.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "mst_balance")
-public class Balance {
+@Table(name = "mst_pocket")
+public class Pocket {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Column(name = "balance_id")
+    @Column(name = "pocket_id")
     private String id;
-    @Column(name = "balance_qty")
-    private Double balanceQty;
+    @Column(name = "pocket_qty")
+    private Double pocketQty;
+    @Column(name = "pocket_name")
+    private String pocketName;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonIgnore
     private Product product;
 
-    public Balance() {
+    public Pocket() {
     }
 
-    public Balance(Double balanceQty) {
-        this.balanceQty = balanceQty;
+    public Pocket(Double pocketQty) {
+        this.pocketQty = pocketQty;
     }
 
-    public Balance(double v, Customer customer) {
-        this.balanceQty =v;
+    public Pocket(double v, Customer customer) {
+        this.pocketQty =v;
         this.customer=customer;
     }
 
-    public Balance(Double balanceQty, Customer customer, Product product) {
-        this.balanceQty = balanceQty;
+    public Pocket(Double pocketQty, String pocketName, Customer customer, Product product) {
+        this.pocketQty = pocketQty;
         this.customer = customer;
         this.product = product;
+        this.pocketName = pocketName;
     }
 
     public String getId() {
@@ -49,12 +55,20 @@ public class Balance {
         this.id = id;
     }
 
-    public Double getBalanceQty() {
-        return balanceQty;
+    public Double getPocketQty() {
+        return pocketQty;
     }
 
-    public void setBalanceQty(Double balanceQty) {
-        this.balanceQty = balanceQty;
+    public void setPocketQty(Double pocketQty) {
+        this.pocketQty = pocketQty;
+    }
+
+    public String getPocketName() {
+        return pocketName;
+    }
+
+    public void setPocketName(String pocketName) {
+        this.pocketName = pocketName;
     }
 
     public Customer getCustomer() {

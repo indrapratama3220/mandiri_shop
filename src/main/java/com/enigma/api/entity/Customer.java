@@ -35,8 +35,7 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE},
     mappedBy = "customer", orphanRemoval = true)
-    @JsonIgnore
-    private List<Balance> balances = new ArrayList<>();
+    private List<Pocket> pockets = new ArrayList<>();
 
 
 
@@ -127,20 +126,20 @@ public class Customer {
         this.email = email;
     }
 
-    public List<Balance> getBalances() {
-        return balances;
+    public List<Pocket> getPockets() {
+        return pockets;
     }
 
-    public void setBalances(List<Balance> balances) {
-        this.balances = balances;
+    public void setPockets(List<Pocket> balances) {
+        this.pockets = balances;
     }
 
-    public void addBalances(Balance balance){
+    public void addBalances(Pocket balance){
         balance.setCustomer(this);
-        this.balances.add(balance);
+        this.pockets.add(balance);
     }
 
     public void removeBalance(String id){
-        this.balances.removeIf(e -> e.getId().equals(id));
+        this.pockets.removeIf(e -> e.getId().equals(id));
     }
 }

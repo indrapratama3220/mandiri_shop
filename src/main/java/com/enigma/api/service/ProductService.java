@@ -14,6 +14,6 @@ public interface ProductService {
     public Product saveProductPicture(Product product, MultipartFile file);
     public List<Product> getAllProduct();
     public Page<Product> getProductsByPage(Pageable pageable, ProductSearchDTO productSearchDTO);
-    public Product editProduct(Product product);
+    public void editProduct(Product product);
     public void deleteProduct(String id);
 }
