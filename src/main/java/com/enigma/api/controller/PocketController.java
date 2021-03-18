@@ -12,13 +12,18 @@ public class PocketController {
     PocketService pocketService;
 
     @GetMapping("/pockets/{id}")
-    public Pocket getBalanceById(@PathVariable String id){
+    public Pocket getPocketById(@PathVariable String id){
         return pocketService.getPocketById(id);
     }
 
     @PostMapping("/pockets")
-    public Pocket saveBalance(@RequestBody Pocket balance){
-        return pocketService.savePocket(balance);
+    public Pocket savePocket(@RequestBody Pocket pocket){
+        return pocketService.savePocket(pocket);
+    }
+
+    @PutMapping("/pockets")
+    public Pocket editBalance(@RequestBody Pocket pocket){
+        return pocketService.editPocket(pocket);
     }
 
 }

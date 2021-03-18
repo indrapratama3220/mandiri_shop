@@ -3,6 +3,8 @@ package com.enigma.api.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "mst_product")
@@ -24,6 +26,8 @@ public class Product {
     private Integer productPriceSell;
     @Column(name = "product_image")
     private String productImage;
+    @OneToMany(mappedBy = "product")
+    List<HistoryPrice> historyPrices = new ArrayList<>();
 
     public Product() {
     }
@@ -91,5 +95,13 @@ public class Product {
 
     public void setProductImage(String productImage) {
         this.productImage = productImage;
+    }
+
+    public List<HistoryPrice> getHistoryPrices() {
+        return historyPrices;
+    }
+
+    public void setHistoryPrices(List<HistoryPrice> historyPrices) {
+        this.historyPrices = historyPrices;
     }
 }

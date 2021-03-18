@@ -1,5 +1,6 @@
 package com.enigma.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class HistoryPrice {
     @Column(name = "price_sell")
     private Integer priceSell;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "product_id")
     private Product product;
 
