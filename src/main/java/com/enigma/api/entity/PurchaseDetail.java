@@ -13,7 +13,7 @@ public class PurchaseDetail {
     @Column(name = "transaction_detail_id")
     private String id;
     @Column(name = "quantity_in_gram")
-    private String quantityInGram;
+    private Double quantityInGram;
     private Integer price;
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -25,7 +25,7 @@ public class PurchaseDetail {
     public PurchaseDetail() {
     }
 
-    public PurchaseDetail(String id, String quantityInGram, Integer price, Product product, Purchase purchase) {
+    public PurchaseDetail(String id, Double quantityInGram, Integer price, Product product, Purchase purchase) {
         this.id = id;
         this.quantityInGram = quantityInGram;
         this.price = price;
@@ -41,11 +41,11 @@ public class PurchaseDetail {
         this.id = id;
     }
 
-    public String getQuantityInGram() {
+    public Double getQuantityInGram() {
         return quantityInGram;
     }
 
-    public void setQuantityInGram(String quantityInGram) {
+    public void setQuantityInGram(Double quantityInGram) {
         this.quantityInGram = quantityInGram;
     }
 

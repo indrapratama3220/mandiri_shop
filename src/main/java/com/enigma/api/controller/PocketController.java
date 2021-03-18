@@ -1,5 +1,6 @@
 package com.enigma.api.controller;
 
+import com.enigma.api.dto.TransactionDTO;
 import com.enigma.api.entity.Pocket;
 import com.enigma.api.service.PocketService;
 import org.springframework.beans.factory.annotation.Autowired;

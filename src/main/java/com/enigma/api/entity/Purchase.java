@@ -21,7 +21,7 @@ public class Purchase {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date transactionDate;
     @Column(name = "purchase_type")
-    private Integer puchaseType;
+    private Integer purchaseType;
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -32,11 +32,11 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(String id, Date transactionDate, Integer puchaseType, Customer customer, List<PurchaseDetail> purchaseDetailList) {
+    public Purchase(String id, Date transactionDate, Integer purchaseType, Customer customer, List<PurchaseDetail> purchaseDetailList) {
         this.id = id;
         this.transactionDate = transactionDate;
         this.customer = customer;
-        this.puchaseType = puchaseType;
+        this.purchaseType = purchaseType;
         this.purchaseDetailList = purchaseDetailList;
     }
 
@@ -64,12 +64,12 @@ public class Purchase {
         this.customer = customerId;
     }
 
-    public Integer getPuchaseType() {
-        return puchaseType;
+    public Integer getPurchaseType() {
+        return purchaseType;
     }
 
-    public void setPuchaseType(Integer puchaseType) {
-        this.puchaseType = puchaseType;
+    public void setPurchaseType(Integer puchaseType) {
+        this.purchaseType = puchaseType;
     }
 
     public List<PurchaseDetail> getPurchaseDetailList() {

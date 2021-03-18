@@ -1,5 +1,6 @@
 package com.enigma.api.controller;
 
+import com.enigma.api.dto.TransactionDTO;
 import com.enigma.api.entity.Purchase;
 import com.enigma.api.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,10 @@ public class PurchaseController {
     @GetMapping("/purchases/{id}")
     public Purchase getPurchaseById(@PathVariable String id){
         return purchaseService.getPurchaseById(id);
+    }
+
+    @PostMapping("/transaction")
+    public void transaction(@RequestBody TransactionDTO transactionDTO){
+        purchaseService.transaction(transactionDTO);
     }
 }

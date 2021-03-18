@@ -1,7 +1,10 @@
 package com.enigma.api.service;
 
+import com.enigma.api.dto.TransactionDTO;
+import com.enigma.api.entity.Pocket;
 import com.enigma.api.entity.Purchase;
 import com.enigma.api.entity.PurchaseDetail;
+import com.enigma.api.repository.PocketRepository;
 import com.enigma.api.repository.ProductRepository;
 import com.enigma.api.repository.PurchaseDetailRepository;
 import com.enigma.api.repository.PurchaseRepository;
@@ -23,6 +26,9 @@ public class PurchaseServiceImpl implements PurchaseService{
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    PocketRepository pocketRepository;
+
     @Override
     public void registerPurchase(Purchase purchase) {
         Purchase purchase1 = purchaseRepository.save(purchase);
@@ -39,5 +45,28 @@ public class PurchaseServiceImpl implements PurchaseService{
     @Override
     public Purchase getPurchaseById(String id) {
         return purchaseRepository.findById(id).get();
+    }
+
+    @Override
+    public void transaction(TransactionDTO transactionDTO) {
+        Purchase purchase = purchaseRepository.save(transactionDTO.getPurchase());
+        for (PurchaseDetail purchaseDetail : purchase.getPurchaseDetailList()){
+            purchaseDetail.setPurchase(purchase);
+            purchaseDetailService.registerPurchaseDetail(purchaseDetail);
+            Pocket poc = pocketRepository.findById(transactionDTO.getIdPocket()).get();
+            Pocket pocket = new Pocket();
+            pocket.setId(poc.getId());
+            pocket.setPocketName(poc.getPocketName());
+            pocket.setCustomer(poc.getCustomer());
+            pocket.setProduct(poc.getProduct());
+            if(purchase.getPurchaseType() == 0) {
+                pocket.setPocketQty(poc.getPocketQty() - purchaseDetail.getQuantityInGram());
+            } if (purchase.getPurchaseType() == 1){
+                pocket.setPocketQty(poc.getPocketQty() + purchaseDetail.getQuantityInGram());
+            }
+
+            pocketRepository.save(pocket);
+        }
+
     }
 }
