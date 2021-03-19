@@ -1,6 +1,5 @@
 package com.enigma.api.service;
 
-import com.enigma.api.dto.HistoryPriceDTO;
 import com.enigma.api.dto.ProductSearchDTO;
 import com.enigma.api.entity.HistoryPrice;
 import com.enigma.api.entity.Product;
@@ -8,7 +7,6 @@ import com.enigma.api.exception.DataNotFoundException;
 import com.enigma.api.repository.HistoryPriceRepository;
 import com.enigma.api.repository.ProductRepository;
 import com.enigma.api.spesification.ProductSpesification;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +14,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 

@@ -2,6 +2,7 @@ package com.enigma.api.service;
 
 import com.enigma.api.dto.CustomerSearchDTO;
 import com.enigma.api.entity.Customer;
+import com.enigma.api.exception.DataNotFoundException;
 import com.enigma.api.repository.CustomerRepository;
 import com.enigma.api.spesification.CustomerSpesification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public Customer getCustomerById(String id) {
+        if(!customerRepository.existsById(id)){
+            String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "customer" , id);
+            throw new DataNotFoundException(message);
+        }
         return customerRepository.findById(id).get();
     }
 

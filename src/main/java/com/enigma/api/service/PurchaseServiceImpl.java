@@ -4,6 +4,7 @@ import com.enigma.api.dto.TransactionDTO;
 import com.enigma.api.entity.Pocket;
 import com.enigma.api.entity.Purchase;
 import com.enigma.api.entity.PurchaseDetail;
+import com.enigma.api.exception.DataNotFoundException;
 import com.enigma.api.repository.PocketRepository;
 import com.enigma.api.repository.ProductRepository;
 import com.enigma.api.repository.PurchaseDetailRepository;
@@ -53,6 +54,10 @@ public class PurchaseServiceImpl implements PurchaseService{
         for (PurchaseDetail purchaseDetail : purchase.getPurchaseDetailList()){
             purchaseDetail.setPurchase(purchase);
             purchaseDetailService.registerPurchaseDetail(purchaseDetail);
+            if(!pocketRepository.existsById(transactionDTO.getIdPocket())){
+                String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "customer", transactionDTO.getIdPocket());
+                throw new DataNotFoundException(message);
+            }
             Pocket poc = pocketRepository.findById(transactionDTO.getIdPocket()).get();
             Pocket pocket = new Pocket();
             pocket.setId(poc.getId());
@@ -63,6 +68,8 @@ public class PurchaseServiceImpl implements PurchaseService{
                 pocket.setPocketQty(poc.getPocketQty() - purchaseDetail.getQuantityInGram());
             } if (purchase.getPurchaseType() == 1){
                 pocket.setPocketQty(poc.getPocketQty() + purchaseDetail.getQuantityInGram());
+            }else {
+                pocket.setPocketQty(poc.getPocketQty());
             }
 
             pocketRepository.save(pocket);
