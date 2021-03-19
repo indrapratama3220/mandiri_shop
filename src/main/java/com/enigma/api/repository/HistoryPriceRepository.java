@@ -4,6 +4,8 @@ import com.enigma.api.dto.HistoryPriceDTO;
 import com.enigma.api.entity.HistoryPrice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface HistoryPriceRepository extends JpaRepository<HistoryPrice, String> {
+import java.util.List;
 
+public interface HistoryPriceRepository extends JpaRepository<HistoryPrice, String> {
+        public List<HistoryPrice> findAllByProductId(String id);
 }

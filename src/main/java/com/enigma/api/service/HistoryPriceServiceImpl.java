@@ -23,4 +23,9 @@ public class HistoryPriceServiceImpl implements HistoryPriceService {
     public List<HistoryPrice> getAllHistoryPrice() {
         return historyPriceRepository.findAll();
     }
+
+    @Override
+    public List<HistoryPrice> getHistoryPriceByProduct(String productId) {
+        return historyPriceRepository.findAllByProductId(productId);
+    }
 }
