@@ -30,6 +30,7 @@ public class Customer {
     @Column(name = "user_name")
     private String userName;
     @Column(name = "user_password")
+    @JsonIgnore
     private String userPassword;
     private String email;
 

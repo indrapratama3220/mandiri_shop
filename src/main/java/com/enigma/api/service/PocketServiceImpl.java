@@ -17,8 +17,8 @@ public class PocketServiceImpl implements PocketService {
     }
 
     @Override
-    public Pocket savePocket(Pocket balance) {
-        return pocketRepository.save(balance);
+    public Pocket savePocket(Pocket pocket) {
+        return pocketRepository.save(pocket);
     }
 
     @Override
