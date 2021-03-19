@@ -20,7 +20,7 @@ public class HistoryPriceController {
     }
 
     @GetMapping("/historyPrices/{productId}")
-    public List<HistoryPrice> getHistoryPriceByProdId(@PathVariable String productId){
+    public List<HistoryPrice> getHistoryPriceByProdId(@PathVariable Integer productId){
         return historyPriceService.getHistoryPriceByProduct(productId);
     }
 }

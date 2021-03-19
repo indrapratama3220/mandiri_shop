@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface HistoryPriceRepository extends JpaRepository<HistoryPrice, String> {
-        public List<HistoryPrice> findAllByProductId(String id);
+        public List<HistoryPrice> findAllByProductId(Integer productId);
 }
