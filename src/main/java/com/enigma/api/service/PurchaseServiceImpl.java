@@ -49,8 +49,9 @@ public class PurchaseServiceImpl implements PurchaseService{
     }
 
     @Override
-    public void transaction(TransactionDTO transactionDTO) {
+    public Pocket transaction(TransactionDTO transactionDTO) {
         Purchase purchase = purchaseRepository.save(transactionDTO.getPurchase());
+        Pocket pockett = new Pocket();
         for (PurchaseDetail purchaseDetail : purchase.getPurchaseDetailList()){
             purchaseDetail.setPurchase(purchase);
             purchaseDetailService.registerPurchaseDetail(purchaseDetail);
@@ -71,9 +72,9 @@ public class PurchaseServiceImpl implements PurchaseService{
             }else {
                 pocket.setPocketQty(poc.getPocketQty());
             }
-
-            pocketRepository.save(pocket);
+            pockett = pocket;
         }
+        return pocketRepository.save(pockett);
 
     }
 }
