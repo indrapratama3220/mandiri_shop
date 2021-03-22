@@ -31,10 +31,10 @@ public class PocketServiceImpl implements PocketService {
             String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "customer" , pocket.getCustomer().getId());
             throw new DataNotFoundException(message);
         }
-        if(!productRepository.existsById(String.valueOf(pocket.getProduct().getId()))){
-            String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "product" , pocket.getProduct().getId());
-            throw new DataNotFoundException(message);
-        }
+//        if(!productRepository.existsById(String.valueOf(pocket.getProduct().getId()))){
+//            String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "product" , pocket.getProduct().getId());
+//            throw new DataNotFoundException(message);
+//        }
         return pocketRepository.save(pocket);
     }
 

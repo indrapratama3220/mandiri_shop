@@ -1,7 +1,7 @@
 package com.enigma.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -30,7 +30,7 @@ public class Customer {
     @Column(name = "user_name")
     private String userName;
     @Column(name = "user_password")
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userPassword;
     private String email;
 
