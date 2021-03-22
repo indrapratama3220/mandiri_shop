@@ -23,8 +23,13 @@ public class PocketController {
     }
 
     @PutMapping("/pockets")
-    public Pocket editBalance(@RequestBody Pocket pocket){
+    public Pocket editPocket(@RequestBody Pocket pocket){
         return pocketService.editPocket(pocket);
+    }
+
+    @DeleteMapping("/pockets")
+    public void deletePocket(@RequestParam(name = "id") String id){
+        pocketService.deletePocket(id);
     }
 
 }

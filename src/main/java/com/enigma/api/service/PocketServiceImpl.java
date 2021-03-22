@@ -25,4 +25,9 @@ public class PocketServiceImpl implements PocketService {
     public Pocket editPocket(Pocket pocket) {
         return pocketRepository.save(pocket);
     }
+
+    @Override
+    public void deletePocket(String id) {
+        pocketRepository.deleteById(id);
+    }
 }
