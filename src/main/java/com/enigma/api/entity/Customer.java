@@ -34,7 +34,7 @@ public class Customer {
     private String userPassword;
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE},
+    @OneToMany(fetch = FetchType.EAGER,
     mappedBy = "customer", orphanRemoval = true)
     private List<Pocket> pockets = new ArrayList<>();
 
