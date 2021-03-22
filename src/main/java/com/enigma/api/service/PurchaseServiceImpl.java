@@ -11,7 +11,11 @@ import com.enigma.api.repository.ProductRepository;
 import com.enigma.api.repository.PurchaseDetailRepository;
 import com.enigma.api.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService{
@@ -80,5 +84,10 @@ public class PurchaseServiceImpl implements PurchaseService{
         String message = String.format(DataCreated.CREATED_MESSAGE, purchase.getId());
         throw new DataCreated(message);
 
+    }
+
+    @Override
+    public Page<Purchase> getPurchaseByCustomerId(String customerId, Pageable pageable) {
+        return purchaseRepository.findAllByCustomerId(customerId, pageable);
     }
 }
