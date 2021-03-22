@@ -4,6 +4,7 @@ import com.enigma.api.dto.TransactionDTO;
 import com.enigma.api.entity.Pocket;
 import com.enigma.api.entity.Purchase;
 import com.enigma.api.entity.PurchaseDetail;
+import com.enigma.api.exception.DataCreated;
 import com.enigma.api.exception.DataNotFoundException;
 import com.enigma.api.repository.PocketRepository;
 import com.enigma.api.repository.ProductRepository;
@@ -74,7 +75,10 @@ public class PurchaseServiceImpl implements PurchaseService{
             }
             pockett = pocket;
         }
-        return pocketRepository.save(pockett);
+
+        pocketRepository.save(pockett);
+        String message = String.format(DataCreated.CREATED_MESSAGE, purchase.getId());
+        throw new DataCreated(message);
 
     }
 }
