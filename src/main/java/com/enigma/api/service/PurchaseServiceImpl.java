@@ -66,7 +66,7 @@ public class PurchaseServiceImpl implements PurchaseService{
             pocket.setProduct(poc.getProduct());
             if(purchase.getPurchaseType() == 0) {
                 pocket.setPocketQty(poc.getPocketQty() - purchaseDetail.getQuantityInGram());
-            } if (purchase.getPurchaseType() == 1){
+            }else if (purchase.getPurchaseType() == 1){
                 pocket.setPocketQty(poc.getPocketQty() + purchaseDetail.getQuantityInGram());
             }else {
                 pocket.setPocketQty(poc.getPocketQty());
