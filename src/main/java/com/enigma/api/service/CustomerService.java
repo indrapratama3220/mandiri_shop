@@ -4,6 +4,9 @@ import com.enigma.api.dto.CustomerSearchDTO;
 import com.enigma.api.entity.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 

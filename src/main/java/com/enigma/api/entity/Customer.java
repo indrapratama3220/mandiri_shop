@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "mst_customer")
@@ -38,21 +36,29 @@ public class Customer {
     mappedBy = "customer", orphanRemoval = true)
     private List<Pocket> pockets = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
 
 
 
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, Date dateOfBirth, String address, Integer status, String userName, String userPassword, String email) {
+
+
+    public Customer(String firstName, String lastName, Date dateOfBirth, String address, Integer status, String userName,  String email, String userPassword) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.status = status;
         this.userName = userName;
-        this.userPassword = userPassword;
         this.email = email;
+        this.userPassword = userPassword;
     }
 
     public String getId() {
@@ -142,5 +148,13 @@ public class Customer {
 
     public void removeBalance(String id){
         this.pockets.removeIf(e -> e.getId().equals(id));
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

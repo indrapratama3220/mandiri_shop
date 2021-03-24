@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -30,6 +31,7 @@ public class CustomerController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Page<Customer> searchCustomerPerPage(@RequestParam(name = "page", defaultValue = "0") Integer page,
                                                 @RequestParam(name = "size", defaultValue = "10") Integer sizePerPage,
                                                 @RequestParam(name = "sortBy", defaultValue = "firstName") String sortBy,
@@ -76,6 +78,7 @@ public class CustomerController {
     }
 
     @DeleteMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteCustomer(@RequestParam(name = "id") String id){
        customerService.deleteCustomer(id);
     }
