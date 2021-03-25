@@ -33,7 +33,7 @@ public class ProductController {
     HistoryPriceService historyPriceService;
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable String id) {
+    public Product getProductById(@PathVariable Integer id) {
         return productService.getProductById(id);
     }
 
@@ -57,20 +57,21 @@ public class ProductController {
 
         if (sortBy != null && productName != null) {
             Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
-            Pageable pageable = PageRequest.of(page, sizePerPage, sort);;
+            Pageable pageable = PageRequest.of(page, sizePerPage, sort);
+            ;
             ProductSearchDTO productSearchDTO = new ProductSearchDTO(productName.toLowerCase());
             return productService.getProductsByPage(pageable, productSearchDTO);
-        } else if(sortBy != null){
+        } else if (sortBy != null) {
             Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
-            Pageable pageable = PageRequest.of(page, sizePerPage, sort);;
+            Pageable pageable = PageRequest.of(page, sizePerPage, sort);
+            ;
             ProductSearchDTO productSearchDTO = new ProductSearchDTO(productName);
             return productService.getProductsByPage(pageable, productSearchDTO);
-        }else if(productName != null){
+        } else if (productName != null) {
             ProductSearchDTO productSearchDTO = new ProductSearchDTO(productName.toLowerCase());
             Pageable pageable = PageRequest.of(page, sizePerPage);
             return productService.getProductsByPage(pageable, productSearchDTO);
-        }
-        else {
+        } else {
             ProductSearchDTO productSearchDTO = new ProductSearchDTO(productName);
             Pageable pageable = PageRequest.of(page, sizePerPage);
             return productService.getProductsByPage(pageable, productSearchDTO);
@@ -79,7 +80,7 @@ public class ProductController {
 
     @DeleteMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public void deleteProduct(@RequestParam(name = "id") String id) {
+    public void deleteProduct(@RequestParam(name = "id") Integer id) {
         productService.deleteProduct(id);
     }
 
@@ -93,7 +94,7 @@ public class ProductController {
     @PreAuthorize("hasRole('ADMIN')")
     public void registerProductPicture(@RequestPart(name = "picture", required = false) MultipartFile file,
                                        @RequestPart(name = "product") String product
-                                       ){
+    ) {
         Product product1 = new Product();
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -109,7 +110,7 @@ public class ProductController {
     @PostMapping("/{id}/picture")
     @PreAuthorize("hasRole('ADMIN')")
     public void uploadPicture(@PathVariable(name = "id") String id,
-                                       @RequestParam(name = "picture") MultipartFile file) {
+                              @RequestParam(name = "picture") MultipartFile file) {
         String pathFolderString = "E:\\Sylabus\\Java\\Mandiri\\handson\\mandiri_shop\\src\\image";
         Path pathFolder = Paths.get(pathFolderString + id);
         Path pathFile = Paths.get(pathFolder.toString() + "/" + id + ".png");

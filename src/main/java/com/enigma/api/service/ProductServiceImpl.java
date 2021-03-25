@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     ProductRepository productRepository;
@@ -31,9 +31,9 @@ public class ProductServiceImpl implements ProductService{
     HistoryPriceRepository historyPriceRepository;
 
     @Override
-    public Product getProductById(String id) {
-        if(!productRepository.existsById(id)){
-            String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "product" , id);
+    public Product getProductById(Integer id) {
+        if (!productRepository.existsById(id)) {
+            String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "product", id);
             throw new DataNotFoundException(message);
         }
         return productRepository.findById(id).get();
@@ -85,7 +85,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void deleteProduct(String id) {
+    public void deleteProduct(Integer id) {
         productRepository.deleteById(id);
     }
 }
