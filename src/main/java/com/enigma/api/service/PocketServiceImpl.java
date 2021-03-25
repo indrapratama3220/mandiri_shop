@@ -27,9 +27,12 @@ public class PocketServiceImpl implements PocketService {
 
     @Override
     public Pocket savePocket(Pocket pocket) {
-        if(!customerRepository.existsById(pocket.getCustomer().getId())){
-            String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "customer" , pocket.getCustomer().getId());
+        if (!customerRepository.existsById(pocket.getCustomer().getId())) {
+            String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "customer", pocket.getCustomer().getId());
             throw new DataNotFoundException(message);
+        }
+        if(pocket.getPocketQty() == null){
+            pocket.setPocketQty(0.0);
         }
 //        if(!productRepository.existsById(String.valueOf(pocket.getProduct().getId()))){
 //            String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "product" , pocket.getProduct().getId());
