@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PurchaseServiceImpl implements PurchaseService{
+public class PurchaseServiceImpl implements PurchaseService {
 
     @Autowired
     PurchaseRepository purchaseRepository;
@@ -38,7 +38,7 @@ public class PurchaseServiceImpl implements PurchaseService{
     @Override
     public void registerPurchase(Purchase purchase) {
         Purchase purchase1 = purchaseRepository.save(purchase);
-        for (PurchaseDetail purchaseDetail : purchase.getPurchaseDetailList()){
+        for (PurchaseDetail purchaseDetail : purchase.getPurchaseDetailList()) {
 //            if(!productRepository.existsById(purchaseDetail.getProduct().getId())){
 //                String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "product" ,purchaseDetail.getProduct().getId());
 //                throw new DataNotFoundException(message);
@@ -55,12 +55,14 @@ public class PurchaseServiceImpl implements PurchaseService{
 
     @Override
     public Pocket transaction(TransactionDTO transactionDTO) {
+        System.out.println("INI TRANSACTION DTO");
+        System.out.println(transactionDTO.getPurchase());
         Purchase purchase = purchaseRepository.save(transactionDTO.getPurchase());
         Pocket pockett = new Pocket();
-        for (PurchaseDetail purchaseDetail : purchase.getPurchaseDetailList()){
+        for (PurchaseDetail purchaseDetail : purchase.getPurchaseDetailList()) {
             purchaseDetail.setPurchase(purchase);
             purchaseDetailService.registerPurchaseDetail(purchaseDetail);
-            if(!pocketRepository.existsById(transactionDTO.getIdPocket())){
+            if (!pocketRepository.existsById(transactionDTO.getIdPocket())) {
                 String message = String.format(DataNotFoundException.NOT_FOUND_MESSAGE, "customer", transactionDTO.getIdPocket());
                 throw new DataNotFoundException(message);
             }
@@ -70,11 +72,11 @@ public class PurchaseServiceImpl implements PurchaseService{
             pocket.setPocketName(poc.getPocketName());
             pocket.setCustomer(poc.getCustomer());
             pocket.setProduct(poc.getProduct());
-            if(purchase.getPurchaseType() == 0) {
+            if (purchase.getPurchaseType() == 0) {
                 pocket.setPocketQty(poc.getPocketQty() - purchaseDetail.getQuantityInGram());
-            }else if (purchase.getPurchaseType() == 1){
+            } else if (purchase.getPurchaseType() == 1) {
                 pocket.setPocketQty(poc.getPocketQty() + purchaseDetail.getQuantityInGram());
-            }else {
+            } else {
                 pocket.setPocketQty(poc.getPocketQty());
             }
             pockett = pocket;

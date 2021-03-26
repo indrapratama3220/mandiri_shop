@@ -13,17 +13,17 @@ public class PurchaseDetailController {
     PurchaseDetailService purchaseDetailService;
 
     @PostMapping("/purchaseDetails")
-    public void savePurchaseDetail(@RequestBody PurchaseDetail purchaseDetail){
+    public void savePurchaseDetail(@RequestBody PurchaseDetail purchaseDetail) {
         purchaseDetailService.registerPurchaseDetail(purchaseDetail);
     }
 
     @PostMapping("/purchaseDetails/list")
-    public void saveAllPurchaseDetail(@RequestBody List<PurchaseDetail> purchaseDetailList){
+    public void saveAllPurchaseDetail(@RequestBody List<PurchaseDetail> purchaseDetailList) {
         purchaseDetailService.saveAllPurchaseDetail(purchaseDetailList);
     }
 
     @GetMapping("purchaseDetails/{id}")
-    public PurchaseDetail getPurchaseDetailById(@PathVariable String id){
+    public PurchaseDetail getPurchaseDetailById(@PathVariable String id) {
         return purchaseDetailService.getPurchaseDetailById(id);
     }
 

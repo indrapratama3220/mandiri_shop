@@ -3,10 +3,10 @@ package com.enigma.api.dto;
 import java.util.Date;
 
 public class CustomerSearchDTO {
- private String searchCustomerFirstName;
- private String searchCustomerEmail;
- private String searchCustomerAddress;
- private Date searchCustomerDateOfBirth;
+    private String searchCustomerFirstName;
+    private String searchCustomerEmail;
+    private String searchCustomerAddress;
+    private Date searchCustomerDateOfBirth;
 
     public CustomerSearchDTO(String searchCustomerFirstName, String searchCustomerEmail, String searchCustomerAddress, Date searchCustomerDateOfBirth) {
         this.searchCustomerFirstName = searchCustomerFirstName;

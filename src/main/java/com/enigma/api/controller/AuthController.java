@@ -11,6 +11,7 @@ import com.enigma.api.security.payload.request.SignupRequest;
 import com.enigma.api.security.payload.response.JwtResponse;
 import com.enigma.api.security.payload.response.MessageResponse;
 import com.enigma.api.service.CustomerDetailsImpl;
+import com.enigma.api.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,13 +42,16 @@ public class AuthController {
     RoleRepository roleRepository;
 
     @Autowired
+    RoleService roleService;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getUserPassword())
         );
@@ -66,13 +70,13 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
-        if (customerRepository.existsByUserName(signupRequest.getUserName())){
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
+        if (customerRepository.existsByUserName(signupRequest.getUserName())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken"));
         }
-        if(customerRepository.existsByEmail(signupRequest.getEmail())){
+        if (customerRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use"));
@@ -81,13 +85,13 @@ public class AuthController {
         Customer customer = new Customer(signupRequest.getFirstName(), signupRequest.getLastName(), signupRequest.getDateOfBirth(), signupRequest.getAddress(), signupRequest.getStatus(), signupRequest.getUserName(), signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getUserPassword()));
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
-        if(strRoles == null){
+        if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-        }else {
+        } else {
             strRoles.forEach(role -> {
-                switch (role){
+                switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
@@ -104,6 +108,11 @@ public class AuthController {
         customerRepository.save(customer);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @PostMapping("/role")
+    public Role createRole(@RequestBody Role role){
+        return roleService.saveRole(role);
     }
 
 }

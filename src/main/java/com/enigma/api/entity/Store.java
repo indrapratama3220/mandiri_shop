@@ -3,10 +3,10 @@ package com.enigma.api.entity;
 import javax.persistence.Id;
 
 public class Store {
-private String id;
-private String storeName;
-private String address;
-private String description;
+    private String id;
+    private String storeName;
+    private String address;
+    private String description;
 
     public Store() {
     }

@@ -38,7 +38,7 @@ public class CustomerDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static CustomerDetailsImpl build(Customer customer){
+    public static CustomerDetailsImpl build(Customer customer) {
         List<GrantedAuthority> authorities = customer.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());

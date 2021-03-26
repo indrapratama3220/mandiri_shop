@@ -29,7 +29,7 @@ public class StoreController {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-        return restTemplate.exchange(URI+"s", HttpMethod.GET, entity, String.class).getBody();
+        return restTemplate.exchange(URI + "s", HttpMethod.GET, entity, String.class).getBody();
     }
 
     @RequestMapping(value = "/template/store/{id}", method = RequestMethod.GET)
@@ -38,7 +38,7 @@ public class StoreController {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-        return restTemplate.exchange(URI+"/"+id, HttpMethod.GET, entity, String.class).getBody();
+        return restTemplate.exchange(URI + "/" + id, HttpMethod.GET, entity, String.class).getBody();
     }
 
     @RequestMapping(value = "/template/store", method = RequestMethod.POST)
@@ -65,18 +65,17 @@ public class StoreController {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-        return restTemplate.exchange(URI+ "/", HttpMethod.DELETE, entity, String.class).getBody();
+        return restTemplate.exchange(URI + "/", HttpMethod.DELETE, entity, String.class).getBody();
     }
 
 
-
     @GetMapping("/stores")
-    public List<Store> getStores(){
+    public List<Store> getStores() {
         return storeService.getStores();
     }
 
     @GetMapping("/store/{id}")
-    public Store getStoreId(@PathVariable String id){
+    public Store getStoreId(@PathVariable String id) {
         return storeService.getStoreId(id);
     }
 

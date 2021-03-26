@@ -13,25 +13,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerSpesification {
-    public static Specification<Customer> getSpesification(CustomerSearchDTO customerSearchDTO){
+    public static Specification<Customer> getSpesification(CustomerSearchDTO customerSearchDTO) {
         return new Specification<Customer>() {
             @Override
             public Predicate toPredicate(Root<Customer> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate>predicates = new ArrayList<>();
+                List<Predicate> predicates = new ArrayList<>();
 
-                if(!(customerSearchDTO.getSearchCustomerFirstName() == null)){
+                if (!(customerSearchDTO.getSearchCustomerFirstName() == null)) {
                     Predicate customerNamePredicate = criteriaBuilder.like(root.get("firstName"), "%" + customerSearchDTO.getSearchCustomerFirstName() + "%");
                     predicates.add(customerNamePredicate);
                 }
-                if(!(customerSearchDTO.getSearchCustomerEmail() == null)){
+                if (!(customerSearchDTO.getSearchCustomerEmail() == null)) {
                     Predicate customerEmailPredicate = criteriaBuilder.like(root.get("email"), "%" + customerSearchDTO.getSearchCustomerEmail() + "%");
                     predicates.add(customerEmailPredicate);
                 }
-                if(!(customerSearchDTO.getSearchCustomerAddress() == null)){
+                if (!(customerSearchDTO.getSearchCustomerAddress() == null)) {
                     Predicate customerAddressPredicate = criteriaBuilder.like(root.get("address"), "%" + customerSearchDTO.getSearchCustomerAddress() + "%");
                     predicates.add(customerAddressPredicate);
                 }
-                if(!(customerSearchDTO.getSearchCustomerDateOfBirth() == null)){
+                if (!(customerSearchDTO.getSearchCustomerDateOfBirth() == null)) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String modifiedDateFormated = sdf.format(customerSearchDTO.getSearchCustomerDateOfBirth());
 
@@ -39,7 +39,7 @@ public class CustomerSpesification {
                             String.class, root.get("dateOfBirth"), criteriaBuilder.literal("yyyy-MM-dd")), modifiedDateFormated);
                     predicates.add(createdDataPredicate);
                 }
-                Predicate [] arrayPredicates = predicates.toArray(new Predicate[predicates.size()]);
+                Predicate[] arrayPredicates = predicates.toArray(new Predicate[predicates.size()]);
                 return criteriaBuilder.and(arrayPredicates);
             }
         };

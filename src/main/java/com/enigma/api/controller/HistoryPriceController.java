@@ -15,12 +15,12 @@ public class HistoryPriceController {
     HistoryPriceService historyPriceService;
 
     @GetMapping("/historyPrices")
-    public List<HistoryPrice> getAllHistoryPrice(){
+    public List<HistoryPrice> getAllHistoryPrice() {
         return historyPriceService.getAllHistoryPrice();
     }
 
     @GetMapping("/historyPrices/{productId}")
-    public List<HistoryPrice> getHistoryPriceByProdId(@PathVariable Integer productId){
+    public List<HistoryPrice> getHistoryPriceByProdId(@PathVariable Integer productId) {
         return historyPriceService.getHistoryPriceByProduct(productId);
     }
 }

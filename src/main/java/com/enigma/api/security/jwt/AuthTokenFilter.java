@@ -1,6 +1,5 @@
 package com.enigma.api.security.jwt;
 
-import com.enigma.api.service.CustomerDetailsImpl;
 import com.enigma.api.service.CustomerDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,26 +31,27 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwt = parseJwt(httpServletRequest);
-            if(jwt != null && jwtUtils.validateJwtToken(jwt)){
+            if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
                 UserDetails customer = customerService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication= new UsernamePasswordAuthenticationToken(
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         customer, null, customer.getAuthorities()
                 );
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error("Cannot set user authentication: {}", e);
         }
 
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        filterChain.
+                doFilter(httpServletRequest, httpServletResponse);
     }
 
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
-        if(StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")){
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
             return headerAuth.substring(7, headerAuth.length());
         }
         return null;

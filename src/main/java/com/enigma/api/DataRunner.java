@@ -1,6 +1,7 @@
 package com.enigma.api;
 
 //import com.enigma.api.config.AppConfig;
+
 import com.enigma.api.repository.PocketRepository;
 import com.enigma.api.repository.CustomerRepository;
 import com.enigma.api.repository.ProductRepository;
@@ -23,7 +24,6 @@ public class DataRunner implements CommandLineRunner {
 
     @Autowired
     RestTemplate restTemplate;
-
 
 
     @Override
@@ -80,7 +80,6 @@ public class DataRunner implements CommandLineRunner {
 //        }
 //
 //        annotationConfigApplicationContext.close();
-
 
 
     }

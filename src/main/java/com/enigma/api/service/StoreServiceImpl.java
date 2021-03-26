@@ -13,7 +13,7 @@ import java.util.Objects;
 
 
 @Service
-public class StoreServiceImpl implements StoreService{
+public class StoreServiceImpl implements StoreService {
 
     @Autowired
     RestTemplate restTemplate;
@@ -27,6 +27,7 @@ public class StoreServiceImpl implements StoreService{
     }
 
     final String URI = "http://localhost:8081/store";
+
     @Override
     public Store getStoreId(String id) {
         ResponseEntity<Store> res = restTemplate.getForEntity(URI + "/" + id, Store.class);
@@ -41,7 +42,7 @@ public class StoreServiceImpl implements StoreService{
 
     @Override
     public String getStoreById(String id) {
-        ResponseEntity<String> response = restTemplate.getForEntity(URI + "/"+ id, String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(URI + "/" + id, String.class);
         return response.toString();
     }
 

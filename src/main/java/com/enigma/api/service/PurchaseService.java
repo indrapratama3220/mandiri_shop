@@ -10,7 +10,10 @@ import java.util.List;
 
 public interface PurchaseService {
     public void registerPurchase(Purchase purchase);
-    public  Purchase getPurchaseById(String id);
+
+    public Purchase getPurchaseById(String id);
+
     public Pocket transaction(TransactionDTO transactionDTO);
+
     public Page<Purchase> getPurchaseByCustomerId(String customerId, Pageable pageable);
 }

@@ -9,9 +9,14 @@ import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, String>, JpaSpecificationExecutor<Customer> {
     public List<Customer> findCustomerByFirstNameContainingAndEmailContaining(String name, String email);
+
     public List<Customer> findCustomerByFirstNameIsLikeAndEmailIsLike(String name, String Email);
+
     List<Customer> findByOrderByFirstNameDesc();
+
     Optional<Customer> findByUserName(String username);
+
     Boolean existsByUserName(String username);
+
     Boolean existsByEmail(String email);
 }

@@ -36,8 +36,8 @@ public class Pocket {
     }
 
     public Pocket(double v, Customer customer) {
-        this.pocketQty =v;
-        this.customer=customer;
+        this.pocketQty = v;
+        this.customer = customer;
     }
 
     public Pocket(Double pocketQty, String pocketName, Customer customer, Product product) {

@@ -25,15 +25,14 @@ public class PurchaseController {
 //    }
 
     @GetMapping("/purchases/{id}")
-    public Purchase getPurchaseById(@PathVariable String id){
+    public Purchase getPurchaseById(@PathVariable String id) {
         return purchaseService.getPurchaseById(id);
     }
 
 
-
     @PostMapping("/purchases")
     @PreAuthorize("hasRole('USER')")
-    public Pocket transaction(@RequestBody TransactionDTO transactionDTO){
+    public Pocket transaction(@RequestBody TransactionDTO transactionDTO) {
         return purchaseService.transaction(transactionDTO);
     }
 
@@ -42,13 +41,13 @@ public class PurchaseController {
                                                   @RequestParam(name = "page", defaultValue = "0") Integer page,
                                                   @RequestParam(name = "size", defaultValue = "10") Integer sizePerPage,
                                                   @RequestParam(name = "sortBy", defaultValue = "transactionDate") String sortBy,
-                                                  @RequestParam(name = "direction", defaultValue = "DESC") String direction){
+                                                  @RequestParam(name = "direction", defaultValue = "DESC") String direction) {
 
         if (sortBy != null) {
             Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
             Pageable pageable = PageRequest.of(page, sizePerPage, sort);
             return purchaseService.getPurchaseByCustomerId(customerId, pageable);
-        }else {
+        } else {
             Pageable pageable = PageRequest.of(page, sizePerPage);
             return purchaseService.getPurchaseByCustomerId(customerId, pageable);
         }

@@ -13,22 +13,22 @@ public class PocketController {
     PocketService pocketService;
 
     @GetMapping("/pockets/{id}")
-    public Pocket getPocketById(@PathVariable String id){
+    public Pocket getPocketById(@PathVariable String id) {
         return pocketService.getPocketById(id);
     }
 
     @PostMapping("/pockets")
-    public Pocket savePocket(@RequestBody Pocket pocket){
+    public Pocket savePocket(@RequestBody Pocket pocket) {
         return pocketService.savePocket(pocket);
     }
 
     @PutMapping("/pockets")
-    public Pocket editPocket(@RequestBody Pocket pocket){
+    public Pocket editPocket(@RequestBody Pocket pocket) {
         return pocketService.editPocket(pocket);
     }
 
     @DeleteMapping("/pockets")
-    public void deletePocket(@RequestParam(name = "id") String id){
+    public void deletePocket(@RequestParam(name = "id") String id) {
         pocketService.deletePocket(id);
     }
 

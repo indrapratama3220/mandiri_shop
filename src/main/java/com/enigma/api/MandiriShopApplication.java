@@ -15,7 +15,7 @@ public class MandiriShopApplication {
     }
 
     @Bean()
-    public RestTemplate getResTemplate(){
+    public RestTemplate getResTemplate() {
         return new RestTemplate();
     }
 
