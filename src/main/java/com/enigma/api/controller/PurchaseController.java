@@ -4,6 +4,7 @@ import com.enigma.api.dto.TransactionDTO;
 import com.enigma.api.entity.Pocket;
 import com.enigma.api.entity.Purchase;
 import com.enigma.api.service.PurchaseService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,8 +32,8 @@ public class PurchaseController {
 
 
     @PostMapping("/purchases")
-    @PreAuthorize("hasRole('USER')")
-    public Pocket transaction(@RequestBody TransactionDTO transactionDTO) {
+    //@PreAuthorize("hasRole('USER')")
+    public Pocket transaction(@RequestBody TransactionDTO transactionDTO) throws JsonProcessingException {
         return purchaseService.transaction(transactionDTO);
     }
 

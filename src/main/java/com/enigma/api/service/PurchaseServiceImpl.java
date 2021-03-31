@@ -1,6 +1,7 @@
 package com.enigma.api.service;
 
 import com.enigma.api.dto.TransactionDTO;
+import com.enigma.api.entity.Email;
 import com.enigma.api.entity.Pocket;
 import com.enigma.api.entity.Purchase;
 import com.enigma.api.entity.PurchaseDetail;
@@ -10,10 +11,13 @@ import com.enigma.api.repository.PocketRepository;
 import com.enigma.api.repository.ProductRepository;
 import com.enigma.api.repository.PurchaseDetailRepository;
 import com.enigma.api.repository.PurchaseRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.List;
 
@@ -35,6 +39,12 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     PocketRepository pocketRepository;
 
+    @Autowired
+    KafkaTemplate<String, String> kafkaTemplate;
+
+    @Autowired
+    ObjectMapper objectMapper;
+
     @Override
     public void registerPurchase(Purchase purchase) {
         Purchase purchase1 = purchaseRepository.save(purchase);
@@ -54,7 +64,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Pocket transaction(TransactionDTO transactionDTO) {
+    public Pocket transaction(TransactionDTO transactionDTO) throws JsonProcessingException {
         System.out.println("INI TRANSACTION DTO");
         System.out.println(transactionDTO.getPurchase());
         Purchase purchase = purchaseRepository.save(transactionDTO.getPurchase());
@@ -83,9 +93,28 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
 
         pocketRepository.save(pockett);
+        String emailMessage = sendEmail(transactionDTO);
+        kafkaTemplate.send("sendemail", emailMessage);
         String message = String.format(DataCreated.CREATED_MESSAGE, purchase.getId());
         throw new DataCreated(message);
 
+    }
+
+    public String sendEmail(TransactionDTO transactionDTO){
+        Email email = new Email();
+        email.setCustomerId(transactionDTO.getPurchase().getCustomer().getId());
+        if(transactionDTO.getPurchase().getPurchaseType() == 1){
+            email.setTransactionType("pembelian");
+        }
+        if(transactionDTO.getPurchase().getPurchaseType() == 0){
+            email.setTransactionType("penjualan");
+        }
+        email.setPrice(transactionDTO.getPurchase().getPurchaseDetailList().get(0).getPrice());
+        Double quantity = transactionDTO.getPurchase().getPurchaseDetailList().get(0).getQuantityInGram();
+        email.setMessage("Customer dengan id " + email.getCustomerId() +
+                " telah melakukan transaksi "+email.getTransactionType()+ " seharga "+email.getPrice() +
+                " dengan quantity "+quantity+ " gram.");
+        return email.getMessage();
     }
 
     @Override
