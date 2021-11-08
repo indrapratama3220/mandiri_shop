@@ -8,6 +8,8 @@ import com.enigma.api.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class PocketServiceImpl implements PocketService {
 
@@ -49,5 +51,10 @@ public class PocketServiceImpl implements PocketService {
     @Override
     public void deletePocket(String id) {
         pocketRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<Pocket> customerPockets(String id, Integer productId) {
+        return pocketRepository.getPocketsByCustomerId(id, productId);
     }
 }

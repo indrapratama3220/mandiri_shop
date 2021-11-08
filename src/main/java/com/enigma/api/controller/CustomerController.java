@@ -4,8 +4,10 @@ import com.enigma.api.constant.ApiUrlConstant;
 import com.enigma.api.dto.CustomerFileDTO;
 import com.enigma.api.dto.CustomerSearchDTO;
 import com.enigma.api.entity.Customer;
+import com.enigma.api.entity.Pocket;
 import com.enigma.api.security.payload.response.MessageResponse;
 import com.enigma.api.service.CustomerService;
+import com.enigma.api.service.PocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,12 +22,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Date;
+import java.util.Set;
 
 @RestController
 @RequestMapping(ApiUrlConstant.CUSTOMER)
 public class CustomerController {
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    PocketService pocketService;
 
     @GetMapping("/{id}")
     public CustomerFileDTO getCustomerById(@PathVariable String id) {
@@ -160,6 +166,12 @@ public class CustomerController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ fileDB.getPhotoProfile() + "\"")
                 .body(fileDB.getPhotoData());
+    }
+
+    @GetMapping("/{id}/pockets/{idProduct}")
+    public Set<Pocket> getCustomerPockets(@PathVariable(name = "id") String id,
+                                          @PathVariable(name = "idProduct") Integer idProduct){
+        return pocketService.customerPockets(id, idProduct);
     }
 
 }

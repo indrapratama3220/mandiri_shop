@@ -93,8 +93,8 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
 
         pocketRepository.save(pockett);
-        String emailMessage = sendEmail(transactionDTO);
-        kafkaTemplate.send("sendemail", emailMessage);
+//        String emailMessage = sendEmail(transactionDTO);
+//        kafkaTemplate.send("sendemail", emailMessage);
         String message = String.format(DataCreated.CREATED_MESSAGE, purchase.getId());
         throw new DataCreated(message);
 
