@@ -1,0 +1,26 @@
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/mandiri_shop
+    username: postgres
+    password: Outworld322
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      show-sql: true
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8082
+  error:
+    include-stacktrace: never
+# App Properties
+enigma:
+  app:
+    jwtSecret: EnigmaSecretKey
+    jwtExpirationMs: 86400000
